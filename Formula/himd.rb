@@ -1,20 +1,20 @@
 class Himd < Formula
   desc "Analyze and search your shell command history"
   homepage "https://github.com/mkasaii16/history_cmd"
-  url "https://github.com/mkasaii16/history_cmd/archive/refs/tags/v0.0.2.tar.gz"
-  sha256 "bd288185cab5b98c26abb55811945ac17da0289850dd5e77a154d0e2081cb2ec"
+  url "https://github.com/mkasaii16/history_cmd/archive/refs/tags/v0.0.3.tar.gz"
+  sha256 "d9bd266b142c52ad86c57c9326c38b12eae6c64fe26d7fdb504f5a69324aaecf"
   license "MIT"
   depends_on :macos
 
   resource "binary" do
     on_arm do
-      url "https://github.com/mkasaii16/history_cmd/releases/download/v0.0.2/himd-aarch64-apple-darwin.tar.gz"
-      sha256 "103b5ddaed91c20b396745cf2a5e71315edbea0c31a50a6f2f48b74f503840f4"
+      url "https://github.com/mkasaii16/history_cmd/releases/download/v0.0.3/himd-aarch64-apple-darwin.tar.gz"
+      sha256 "079694e9687f8848d9b23551caf42a8064434ced61e5d756ef419e37081cdbda"
     end
 
     on_intel do
-      url "https://github.com/mkasaii16/history_cmd/releases/download/v0.0.2/himd-x86_64-apple-darwin.tar.gz"
-      sha256 "a813f14245f0fc52a8b0576954a9d50f38a39df5d29b3a4bb85f6feebb23ae7b"
+      url "https://github.com/mkasaii16/history_cmd/releases/download/v0.0.3/himd-x86_64-apple-darwin.tar.gz"
+      sha256 "afccb6c9969c38c330c55411f58dc53a598d578aaea5fbcce7b1fc4f7a7ece93"
     end
   end
 
