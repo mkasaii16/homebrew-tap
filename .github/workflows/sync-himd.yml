@@ -1,0 +1,91 @@
+name: Sync himd release
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 * * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/sync-himd.yml
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: macos-15
+
+    steps:
+      - name: Check out tap
+        uses: actions/checkout@v7
+
+      - name: Read latest himd release
+        id: release
+        shell: bash
+        run: |
+          tag="$(curl --fail --silent --show-error \
+            https://api.github.com/repos/mkasaii16/history_cmd/releases/latest \
+            | jq -r '.tag_name')"
+          version="${tag#v}"
+          current="$(sed -nE 's|.*refs/tags/v([^/]+)\.tar\.gz.*|\1|p' Formula/himd.rb | head -1)"
+
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+          if [[ "$version" == "$current" ]]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update Formula URLs and checksums
+        if: steps.release.outputs.changed == 'true'
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+        shell: bash
+        run: |
+          source_url="https://github.com/mkasaii16/history_cmd/archive/refs/tags/v${VERSION}.tar.gz"
+          checksums_url="https://github.com/mkasaii16/history_cmd/releases/download/v${VERSION}/checksums.txt"
+
+          curl --fail --silent --show-error --location "$source_url" --output source.tar.gz
+          curl --fail --silent --show-error --location "$checksums_url" --output checksums.txt
+
+          source_sha="$(shasum -a 256 source.tar.gz | awk '{print $1}')"
+          arm_sha="$(awk '/himd-aarch64-apple-darwin\.tar\.gz$/ {print $1}' checksums.txt)"
+          intel_sha="$(awk '/himd-x86_64-apple-darwin\.tar\.gz$/ {print $1}' checksums.txt)"
+
+          ruby - "$VERSION" "$source_sha" "$arm_sha" "$intel_sha" <<'RUBY'
+          path = "Formula/himd.rb"
+          version, source_sha, arm_sha, intel_sha = ARGV
+          content = File.read(path)
+          current = content[%r{refs/tags/v([^/]+)\.tar\.gz}, 1]
+          abort "Could not find current Formula version" unless current
+
+          content.gsub!("v#{current}", "v#{version}")
+          hashes = [source_sha, arm_sha, intel_sha]
+          index = 0
+          content.gsub!(/sha256 "[0-9a-f]{64}"/) do
+            replacement = hashes.fetch(index)
+            index += 1
+            %(sha256 "#{replacement}")
+          end
+          abort "Expected exactly three SHA256 fields" unless index == hashes.length
+          File.write(path, content)
+          RUBY
+
+      - name: Validate Formula
+        if: steps.release.outputs.changed == 'true'
+        run: |
+          ruby -c Formula/himd.rb
+          brew style Formula/himd.rb
+
+      - name: Commit Formula update
+        if: steps.release.outputs.changed == 'true'
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Formula/himd.rb
+          git commit -m "Update himd to ${VERSION}"
+          git push
