@@ -1,18 +1,39 @@
-# Mkasaii16 Tap
+# Homebrew tap for himd
 
-## How do I install these formulae?
+This is the official Homebrew tap for
+[`himd`](https://github.com/mkasaii16/history_cmd), a fast command-line tool
+for analyzing and searching Bash and Zsh history.
 
-`brew install mkasaii16/tap/<formula>`
+## Install
 
-Or `brew tap mkasaii16/tap` and then `brew install <formula>`.
-
-Or, in a `brew bundle` `Brewfile`:
-
-```ruby
-tap "mkasaii16/tap"
-brew "<formula>"
+```console
+brew tap mkasaii16/tap
+brew trust --formula mkasaii16/tap/himd
+brew install mkasaii16/tap/himd
 ```
 
-## Documentation
+Homebrew requires explicit trust for third-party formulae. This trusts only the
+`himd` formula, rather than the entire tap.
 
-`brew help`, `man brew` or check [Homebrew's documentation](https://docs.brew.sh).
+## Update
+
+```console
+brew update
+brew upgrade himd
+```
+
+`himd` also checks GitHub Releases in the background whenever it runs. When a
+newer version is available, it prints the exact upgrade command.
+
+## Uninstall
+
+```console
+brew uninstall himd
+```
+
+## Verify
+
+```console
+himd --version
+himd --help
+```
