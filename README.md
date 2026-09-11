@@ -23,8 +23,8 @@ brew upgrade himd
 ```
 
 `himd` also checks GitHub Releases in the background whenever it runs. When a
-newer version is available, it prints the exact upgrade command. The tap checks
-for new `himd` releases every hour and updates its Formula automatically.
+newer version is available, it prints the exact upgrade command. Publishing a
+new tagged `himd` release triggers this tap and updates its Formula automatically.
 
 ## Uninstall
 

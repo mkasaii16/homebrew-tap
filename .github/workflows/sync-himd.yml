@@ -2,13 +2,9 @@ name: Sync himd release
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "17 * * * *"
-  push:
-    branches:
-      - main
-    paths:
-      - .github/workflows/sync-himd.yml
+  repository_dispatch:
+    types:
+      - himd-released
 
 permissions:
   contents: write
