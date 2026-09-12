@@ -1,22 +1,22 @@
 class Codesweep < Formula
   desc "Find structurally duplicate and similar functions across multiple languages"
   homepage "https://github.com/mkasaii16/codesweep-releases"
-  version "0.1.0"
+  version "0.1.1"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/mkasaii16/codesweep-releases/releases/download/v0.1.0/codesweep-v0.1.0-macos-arm64.tar.gz"
-      sha256 "17f17ab6f2101f45873617b03e15058f0ed9e15095c3a4c8ee75d47f8ce333a3"
+      url "https://github.com/mkasaii16/codesweep-releases/releases/download/v0.1.1/codesweep-v0.1.1-macos-arm64.tar.gz"
+      sha256 "3ca369baa63bec4a6a9e790170498350af8fa1aff5599d90b24fd484a73ec1e0"
     else
-      url "https://github.com/mkasaii16/codesweep-releases/releases/download/v0.1.0/codesweep-v0.1.0-macos-x64.tar.gz"
-      sha256 "93c6ce25490b4e0bfd69fb904de5a5d430b5482890e4b19aa90e54f289705bad"
+      url "https://github.com/mkasaii16/codesweep-releases/releases/download/v0.1.1/codesweep-v0.1.1-macos-x64.tar.gz"
+      sha256 "52c625e6cc6208bc32c122265a47e8cc7b037137edc2cc7736cafd6cfe108865"
     end
   end
 
   on_linux do
     depends_on arch: :x86_64
-    url "https://github.com/mkasaii16/codesweep-releases/releases/download/v0.1.0/codesweep-v0.1.0-linux-x64.tar.gz"
-    sha256 "07fcbcc25da92b9b14891dc353d0171abc7eb0da6e183200857aebb8bad28780"
+    url "https://github.com/mkasaii16/codesweep-releases/releases/download/v0.1.1/codesweep-v0.1.1-linux-x64.tar.gz"
+    sha256 "f5fa7a6598bde91434609a2036d8241a13ec738a6c1a2c8e0679942183177b0a"
   end
 
   def install
