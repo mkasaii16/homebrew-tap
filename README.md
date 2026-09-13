@@ -28,6 +28,8 @@ codesweep ./android-app -lg kotlin
 codesweep ./ios-app -lg swift
 codesweep ./go-service -lg go
 codesweep ./dotnet-app -lg csharp
+codesweep ./web-app -s calculateTotal
+codesweep ./web-app -s calculateTotal -t 80
 codesweep --help
 ```
 
