@@ -7,7 +7,7 @@ Official Homebrew formulas for command-line developer tools created by
 
 | Tool | Description | Platforms |
 | --- | --- | --- |
-| [`codesweep`](https://github.com/mkasaii16/codesweep-releases) | Finds duplicate and structurally similar functions in TypeScript, JavaScript, Flutter/Dart, Kotlin, Swift, Go, and C#/.NET projects. | macOS Apple Silicon, macOS Intel, Linux x86-64 |
+| [`codesweep`](https://github.com/mkasaii16/codesweep-releases) | Finds structurally similar code and maps React, Flutter, Compose, and SwiftUI component trees. | macOS Apple Silicon, macOS Intel, Linux x86-64 |
 | [`himd`](https://github.com/mkasaii16/history_cmd) | Interactive shell history search and command discovery. | macOS Apple Silicon, macOS Intel, Linux x86-64 |
 
 ## Install codesweep
